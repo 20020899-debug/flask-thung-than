@@ -3,6 +3,7 @@ body{
     margin: 20px;
 }
 
+/* BOX */
 .box{
     background:white;
     border-radius:10px;
@@ -11,6 +12,7 @@ body{
     box-shadow:0 2px 8px rgba(0,0,0,.1);
 }
 
+/* INPUT */
 label{
     display:inline-block;
     width:220px;
@@ -24,25 +26,39 @@ input{
     margin-bottom:8px;
 }
 
+/* FILE INPUT riêng cho PDF */
+input[type="file"]{
+    width:auto;
+    padding:10px;
+}
+
+/* BUTTON */
 button{
     padding:10px 20px;
     cursor:pointer;
     font-weight:bold;
+    border:none;
+    border-radius:6px;
 }
 
+button:hover{
+    opacity:0.9;
+}
+
+/* TEXT OUTPUT */
 pre{
     background:#f4f4f4;
     padding:12px;
     white-space:pre-wrap;
 }
 
+/* LINK */
 a{
     text-decoration:none;
     color:blue;
 }
 
 /* MENU */
-
 .menu a{
     padding:8px 12px;
     text-decoration:none;
@@ -60,10 +76,8 @@ a{
 .menu a:hover{
     background:#e9ecef;
 }
-/* PDF Drag Drop */
 
-/* PDF */
-
+/* PDF DROP AREA */
 #drop-area{
     border:2px dashed #0d6efd;
     border-radius:10px;
@@ -77,10 +91,12 @@ a{
     background:#eef5ff;
 }
 
+/* FILE LIST */
 #file-list{
     margin-top:10px;
 }
 
+/* PDF ROW */
 .pdf-row{
     display:flex;
     justify-content:space-between;
@@ -91,22 +107,20 @@ a{
     gap:10px;
 }
 
-.pdf-row button{
-    background:#dc3545;
-    color:white;
-    border:none;
-    border-radius:5px;
-    padding:4px 10px;
-    cursor:pointer;
-}
-
-.pdf-row button:hover{
-    opacity:0.9;
-}
 .pdf-row:active{
     cursor:grabbing;
     background:#f1f1f1;
 }
+
+/* DELETE BUTTON */
+.pdf-row button{
+    background:#dc3545;
+    color:white;
+    border-radius:5px;
+    padding:4px 10px;
+}
+
+/* PDF PREVIEW */
 .pdf-row canvas{
     border:1px solid #ccc;
     border-radius:7px;
