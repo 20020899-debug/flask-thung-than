@@ -18,30 +18,23 @@ def merge_pdf_run():
 
     files = request.files.getlist("pdfs")
 
-    if not files:
-        return "Chưa chọn file PDF"
+    output_name = request.form.get("output_name", "Merged.pdf")
 
     writer = PdfWriter()
 
     for file in files:
-
-        if not file.filename.lower().endswith(".pdf"):
-            continue
-
         reader = PdfReader(file)
 
         for page in reader.pages:
             writer.add_page(page)
 
     pdf_buffer = BytesIO()
-
     writer.write(pdf_buffer)
-
     pdf_buffer.seek(0)
 
     return send_file(
         pdf_buffer,
         as_attachment=True,
-        download_name="Merged.pdf",
+        download_name=output_name,
         mimetype="application/pdf"
     )
