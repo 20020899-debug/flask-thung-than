@@ -60,6 +60,46 @@ const fileList = document.getElementById("file-list");
 const fileCount = document.getElementById("file-count");
 const dropArea = document.getElementById("drop-area");
 
+// PDF.js config
+pdfjsLib.GlobalWorkerOptions.workerSrc =
+  "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+
+
+function renderPDFPreview(file, container){
+
+    const fileReader = new FileReader();
+
+    fileReader.onload = function() {
+
+        const typedarray = new Uint8Array(this.result);
+
+        pdfjsLib.getDocument(typedarray).promise.then(pdf => {
+
+            pdf.getPage(1).then(page => {
+
+                const viewport = page.getViewport({ scale: 0.3 });
+
+                const canvas = document.createElement("canvas");
+                const context = canvas.getContext("2d");
+
+                canvas.width = viewport.width;
+                canvas.height = viewport.height;
+
+                page.render({
+                    canvasContext: context,
+                    viewport: viewport
+                });
+
+                container.prepend(canvas);
+            });
+
+        });
+
+    };
+
+    fileReader.readAsArrayBuffer(file);
+}
+
 
 function refreshList(){
 
@@ -70,56 +110,63 @@ function refreshList(){
         const row = document.createElement("div");
         row.className = "pdf-row";
         row.draggable = true;
-        row.dataset.index = index;
 
-        row.innerHTML = `
-            <span>☰ 📄 ${file.name}</span>
-            <button type="button" onclick="removeFile(${index})">❌</button>
-        `;
+        // LEFT: preview + name
+        const left = document.createElement("div");
+        left.style.display = "flex";
+        left.style.alignItems = "center";
+        left.style.gap = "10px";
+
+        const info = document.createElement("div");
+        info.innerHTML = `📄 ${file.name}`;
+
+        left.appendChild(info);
+
+        // RIGHT: delete button
+        const delBtn = document.createElement("button");
+        delBtn.innerHTML = "❌";
+        delBtn.type = "button";
+        delBtn.onclick = () => {
+            allFiles.splice(index, 1);
+            refreshList();
+        };
+
+        row.appendChild(left);
+        row.appendChild(delBtn);
 
         // Drag start
-        row.addEventListener("dragstart", (e) => {
+        row.addEventListener("dragstart", e => {
             e.dataTransfer.setData("from", index);
         });
 
-        // Drag over
-        row.addEventListener("dragover", (e) => {
+        // Drop reorder
+        row.addEventListener("dragover", e => {
             e.preventDefault();
         });
 
-        // Drop (đổi vị trí)
-        row.addEventListener("drop", (e) => {
+        row.addEventListener("drop", e => {
             e.preventDefault();
 
-            let fromIndex = e.dataTransfer.getData("from");
-            let toIndex = index;
+            let from = e.dataTransfer.getData("from");
 
-            if(fromIndex == toIndex) return;
-
-            let movedItem = allFiles.splice(fromIndex, 1)[0];
-            allFiles.splice(toIndex, 0, movedItem);
+            let moved = allFiles.splice(from, 1)[0];
+            allFiles.splice(index, 0, moved);
 
             refreshList();
         });
 
         fileList.appendChild(row);
+
+        // 👉 render preview
+        renderPDFPreview(file, left);
     });
 
     fileCount.textContent = allFiles.length;
 
-    // cập nhật lại input file
+    // sync input
     const dt = new DataTransfer();
-
-    allFiles.forEach(file => dt.items.add(file));
-
+    allFiles.forEach(f => dt.items.add(f));
     input.files = dt.files;
-}
-
-
-// Xóa file
-function removeFile(index){
-    allFiles.splice(index, 1);
-    refreshList();
 }
 
 
@@ -129,20 +176,18 @@ input.addEventListener("change", () => {
     refreshList();
 });
 
-
-// kéo thả vào vùng upload
-dropArea.addEventListener("dragover", e => {
-    e.preventDefault();
-});
+// drop file
+dropArea.addEventListener("dragover", e => e.preventDefault());
 
 dropArea.addEventListener("drop", e => {
+
     e.preventDefault();
 
     const files = [...e.dataTransfer.files];
 
-    files.forEach(file => {
-        if(file.name.toLowerCase().endsWith(".pdf")){
-            allFiles.push(file);
+    files.forEach(f => {
+        if(f.name.toLowerCase().endsWith(".pdf")){
+            allFiles.push(f);
         }
     });
 
@@ -150,6 +195,5 @@ dropArea.addEventListener("drop", e => {
 });
 
 </script>
-
 </body>
 </html>
