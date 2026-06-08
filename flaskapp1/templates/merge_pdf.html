@@ -1,30 +1,85 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>GỘP PDF</title>
-    <link rel="stylesheet"
-      href="{{ url_for('static', filename='style.css') }}">
-</head>
+    <title>Gộp PDF</title>
 
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
 <body>
+
 {% include "menu.html" %}
 
-<h2>📑 Gộp PDF</h2>
+<div class="box">
 
-<form action="/merge-pdf/run"
-      method="post"
-      enctype="multipart/form-data">
+    <h2>📑 Gộp PDF</h2>
 
-    <input
-        type="file"
-        name="pdfs"
-        multiple
-        accept=".pdf">
+    <form action="/merge-pdf/run"
+          method="post"
+          enctype="multipart/form-data">
 
-    <br><br>
+        <div id="drop-area">
+            <p>Kéo thả file PDF vào đây</p>
+            <p>hoặc</p>
 
-    <button type="submit">
-        Gộp PDF
-    </button>
+            <input
+                type="file"
+                id="pdfs"
+                name="pdfs"
+                multiple
+                accept=".pdf">
+        </div>
 
-</form>
+        <div id="file-list"></div>
+
+        <br>
+
+        <button type="submit">
+            📑 Gộp PDF
+        </button>
+
+    </form>
+
+</div>
+
+<script>
+
+const input = document.getElementById("pdfs");
+const fileList = document.getElementById("file-list");
+const dropArea = document.getElementById("drop-area");
+
+function showFiles(files){
+
+    fileList.innerHTML = "";
+
+    [...files].forEach(file => {
+
+        const div = document.createElement("div");
+
+        div.textContent = "📄 " + file.name;
+
+        fileList.appendChild(div);
+    });
+}
+
+input.addEventListener("change", () => {
+    showFiles(input.files);
+});
+
+dropArea.addEventListener("dragover", e => {
+    e.preventDefault();
+});
+
+dropArea.addEventListener("drop", e => {
+
+    e.preventDefault();
+
+    input.files = e.dataTransfer.files;
+
+    showFiles(input.files);
+});
+
+</script>
+
+</body>
+</html>
