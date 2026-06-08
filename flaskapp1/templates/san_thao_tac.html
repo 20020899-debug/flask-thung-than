@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tính khối lượng sàn thao tác</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            margin: 20px;
+        }
+
+        .box {
+            background:white;
+            border-radius:10px;
+            padding:15px;
+            margin-bottom:15px;
+            box-shadow:0 2px 8px rgba(0,0,0,.1);
+        }
+
+        label {
+            display: inline-block;
+            width: 220px;
+            font-weight: 500;
+        }
+
+        input {
+            width: 200px;
+            padding: 5px;
+            margin-bottom: 8px;
+        }
+
+        button {
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        a {
+            text-decoration: none;
+            color: blue;
+        }
+    </style>
+</head>
+
+<body>
+
+{% include 'menu.html' %}
+
+<h1>TÍNH KHỐI LƯỢNG SÀN THAO TÁC</h1>
+
+<a href="/">← Quay lại</a>
+
+<form method="post">
+
+<div class="box">
+
+<p>Chiều dài sàn (mm)</p>
+<input name="chieu_dai"
+       value="{{ form.get('chieu_dai','') }}">
+
+<p>Chiều rộng sàn (mm)</p>
+<input name="chieu_rong"
+       value="{{ form.get('chieu_rong','') }}">
+
+<p>Chiều cao sàn (mm)</p>
+<input name="chieu_cao"
+       value="{{ form.get('chieu_cao','') }}">
+
+<p>Độ dày tôn chân (mm)</p>
+<input name="do_day_ton"
+       value="{{ form.get('do_day_ton','') }}">
+
+<p>Số chân</p>
+<input name="so_chan"
+       value="{{ form.get('so_chan','') }}">
+
+<p>Thanh ngang</p>
+<input name="thanh_ngang"
+       value="{{ form.get('thanh_ngang','') }}">
+
+<p>Thanh dọc</p>
+<input name="thanh_doc"
+       value="{{ form.get('thanh_doc','') }}">
+
+</div>
+
+<button type="submit">TÍNH TOÁN</button>
+
+</form>
+
+{% if ket_qua %}
+
+<hr>
+
+<div class="box">
+
+<p>Khối lượng sàn: <b>{{ ket_qua.san }} Kg</b></p>
+
+<p>Khối lượng thang + lan can: <b>{{ ket_qua.thang }} Kg</b></p>
+
+<p>Khối lượng vòng bảo vệ: <b>{{ ket_qua.vong }} Kg</b></p>
+
+<h2>Tổng khối lượng: {{ ket_qua.tong }} Kg</h2>
+
+</div>
+
+{% endif %}
+
+</body>
+</html>
