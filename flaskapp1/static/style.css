@@ -42,7 +42,7 @@ button{
 }
 
 button:hover{
-    opacity:0.9;
+    background:#218838;
 }
 
 /* TEXT OUTPUT */
