@@ -87,6 +87,7 @@ a{
     align-items:center;
     padding:8px;
     border-bottom:1px solid #ddd;
+    cursor:grab;
 }
 
 .pdf-row button{
@@ -100,4 +101,8 @@ a{
 
 .pdf-row button:hover{
     opacity:0.9;
+}
+.pdf-row:active{
+    cursor:grabbing;
+    background:#f1f1f1;
 }
