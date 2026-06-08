@@ -109,7 +109,7 @@ a{
 }
 .pdf-row canvas{
     border:1px solid #ccc;
-    border-radius:5px;
+    border-radius:7px;
     width:200px;
     height:auto;
 }
