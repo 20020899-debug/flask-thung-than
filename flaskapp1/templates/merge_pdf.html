@@ -1,0 +1,21 @@
+{% include "menu.html" %}
+
+<h2>📑 Gộp PDF</h2>
+
+<form action="/merge-pdf/run"
+      method="post"
+      enctype="multipart/form-data">
+
+    <input
+        type="file"
+        name="pdfs"
+        multiple
+        accept=".pdf">
+
+    <br><br>
+
+    <button type="submit">
+        Gộp PDF
+    </button>
+
+</form>
