@@ -2,44 +2,8 @@
 <html>
 <head>
     <title>Tính khối lượng sàn thao tác</title>
-
-    <style>
-        body {
-            font-family: Arial;
-            margin: 20px;
-        }
-
-        .box {
-            background:white;
-            border-radius:10px;
-            padding:15px;
-            margin-bottom:15px;
-            box-shadow:0 2px 8px rgba(0,0,0,.1);
-        }
-
-        label {
-            display: inline-block;
-            width: 220px;
-            font-weight: 500;
-        }
-
-        input {
-            width: 200px;
-            padding: 5px;
-            margin-bottom: 8px;
-        }
-
-        button {
-            padding: 10px 20px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        a {
-            text-decoration: none;
-            color: blue;
-        }
-    </style>
+    <link rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
