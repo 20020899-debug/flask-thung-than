@@ -47,7 +47,7 @@
 
 {% include 'menu.html' %}
 
-<h2>PHẦN MỀM TÍNH KHỐI LƯỢNG</h2>
+<h2>TÍNH KHỐI LƯỢNG THÙNG THAN</h2>
 
 <form method="post">
 
@@ -92,10 +92,9 @@
 <input name="U150x75"
        value="{{ form.get('U150x75', '') }}"><br>
 </div>
-
-<!-- ================= KHÁC ================= -->
+    <!-- ================= SÀN THAN ================= -->
 <div class="box">
-<h3>KHỐI LƯỢNG KHAY ĐỰNG THAN</h3>
+<h3>SÀN THAN</h3>
 
 <label>Số tầng</label>
 <input name="Số tầng"
@@ -105,6 +104,11 @@
 <input name="Chiều dày lớp than"
        value="{{ form.get('Chiều dày lớp than', '') }}"><br>
 
+</div>
+
+<!-- ================= KHAY THAN ================= -->
+<div class="box">
+<h3>KHỐI LƯỢNG KHAY ĐỰNG THAN</h3>
 <label>Dài khay</label>
 <input name="Dài khay"
        value="{{ form.get('Dài khay', '') }}"><br>
