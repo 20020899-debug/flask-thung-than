@@ -1,15 +1,8 @@
 from flask import Blueprint, render_template, request, send_file
-from pypdf import PdfWriter, PdfReader
-import os
-import uuid
+from pypdf import PdfReader, PdfWriter
+from io import BytesIO
 
 pdf_bp = Blueprint("pdf", __name__)
-
-UPLOAD_FOLDER = "uploads"
-OUTPUT_FOLDER = "outputs"
-
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-os.makedirs(OUTPUT_FOLDER, exist_ok=True)
 
 
 @pdf_bp.route("/merge-pdf")
@@ -25,26 +18,30 @@ def merge_pdf_run():
 
     files = request.files.getlist("pdfs")
 
+    if not files:
+        return "Chưa chọn file PDF"
+
     writer = PdfWriter()
 
     for file in files:
+
+        if not file.filename.lower().endswith(".pdf"):
+            continue
+
         reader = PdfReader(file)
 
         for page in reader.pages:
             writer.add_page(page)
 
-    filename = f"{uuid.uuid4().hex}.pdf"
+    pdf_buffer = BytesIO()
 
-    output_path = os.path.join(
-        OUTPUT_FOLDER,
-        filename
-    )
+    writer.write(pdf_buffer)
 
-    with open(output_path, "wb") as f:
-        writer.write(f)
+    pdf_buffer.seek(0)
 
     return send_file(
-        output_path,
+        pdf_buffer,
         as_attachment=True,
-        download_name="Merged.pdf"
+        download_name="Merged.pdf",
+        mimetype="application/pdf"
     )
