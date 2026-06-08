@@ -88,6 +88,7 @@ a{
     padding:8px;
     border-bottom:1px solid #ddd;
     cursor:grab;
+    gap:10px;
 }
 
 .pdf-row button{
@@ -105,4 +106,10 @@ a{
 .pdf-row:active{
     cursor:grabbing;
     background:#f1f1f1;
+}
+.pdf-row canvas{
+    border:1px solid #ccc;
+    border-radius:5px;
+    width:60px;
+    height:auto;
 }
