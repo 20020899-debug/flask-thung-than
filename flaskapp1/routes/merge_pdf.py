@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, send_file
-from pypdf import PdfMerger
+from pypdf import PdfWriter, PdfReader
 import os
 import uuid
 
@@ -25,10 +25,13 @@ def merge_pdf_run():
 
     files = request.files.getlist("pdfs")
 
-    merger = PdfMerger()
+    writer = PdfWriter()
 
     for file in files:
-        merger.append(file)
+        reader = PdfReader(file)
+
+        for page in reader.pages:
+            writer.add_page(page)
 
     filename = f"{uuid.uuid4().hex}.pdf"
 
@@ -37,8 +40,8 @@ def merge_pdf_run():
         filename
     )
 
-    merger.write(output_path)
-    merger.close()
+    with open(output_path, "wb") as f:
+        writer.write(f)
 
     return send_file(
         output_path,
