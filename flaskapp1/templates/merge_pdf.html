@@ -19,7 +19,9 @@
           enctype="multipart/form-data">
 
         <div id="drop-area">
-            <p>Kéo thả file PDF vào đây</p>
+
+            <h3>Kéo thả PDF vào đây</h3>
+
             <p>hoặc</p>
 
             <input
@@ -28,7 +30,13 @@
                 name="pdfs"
                 multiple
                 accept=".pdf">
+
         </div>
+
+        <p>
+            <strong>Số file:</strong>
+            <span id="file-count">0</span>
+        </p>
 
         <div id="file-list"></div>
 
@@ -44,39 +52,84 @@
 
 <script>
 
+let allFiles = [];
+
 const input = document.getElementById("pdfs");
 const fileList = document.getElementById("file-list");
+const fileCount = document.getElementById("file-count");
 const dropArea = document.getElementById("drop-area");
 
-function showFiles(files){
+
+function refreshList(){
 
     fileList.innerHTML = "";
 
-    [...files].forEach(file => {
+    allFiles.forEach((file, index) => {
 
-        const div = document.createElement("div");
+        const row = document.createElement("div");
 
-        div.textContent = "📄 " + file.name;
+        row.className = "pdf-row";
 
-        fileList.appendChild(div);
+        row.innerHTML = `
+            <span>📄 ${file.name}</span>
+            <button
+                type="button"
+                onclick="removeFile(${index})">
+                ❌
+            </button>
+        `;
+
+        fileList.appendChild(row);
     });
+
+    fileCount.textContent = allFiles.length;
+
+    const dt = new DataTransfer();
+
+    allFiles.forEach(file => {
+        dt.items.add(file);
+    });
+
+    input.files = dt.files;
 }
 
+
+function removeFile(index){
+
+    allFiles.splice(index, 1);
+
+    refreshList();
+}
+
+
 input.addEventListener("change", () => {
-    showFiles(input.files);
+
+    allFiles.push(...input.files);
+
+    refreshList();
 });
+
 
 dropArea.addEventListener("dragover", e => {
     e.preventDefault();
 });
 
+
 dropArea.addEventListener("drop", e => {
 
     e.preventDefault();
 
-    input.files = e.dataTransfer.files;
+    const files = [...e.dataTransfer.files];
 
-    showFiles(input.files);
+    files.forEach(file => {
+
+        if(file.name.toLowerCase().endsWith(".pdf")){
+            allFiles.push(file);
+        }
+
+    });
+
+    refreshList();
 });
 
 </script>
