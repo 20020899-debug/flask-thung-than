@@ -94,7 +94,12 @@ def thung_than():
                 + L_thung * 2
             )
 
-            rong_trien_khai = 245 if loai_chan == "150" else 195
+            if loai_chan == "200":
+               rong_trien_khai = 295
+            elif loai_chan == "150":
+               rong_trien_khai = 245
+            else:
+               rong_trien_khai = 195
 
             kl_chan = (
                 dai_chan
