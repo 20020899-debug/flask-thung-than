@@ -1,4 +1,4 @@
-```python
+
 import math
 from flask import Blueprint, render_template, request
 
@@ -29,10 +29,6 @@ def thung_than():
 
         try:
 
-            # =========================
-            # THÔNG SỐ CHUNG
-            # =========================
-
             L_tong = get_float("Chiều dài tổng")
             L_thung = get_float("Chiều dài thùng")
             Rong = get_float("Chiều rộng")
@@ -40,6 +36,7 @@ def thung_than():
             Day = get_float("Độ dày tôn")
             Dau_vao = get_float("Kích thước đầu vào")
 
+            # Loại chân U100 hoặc U150
             loai_chan = request.form.get("Loại chân", "100")
 
             so_tang = get_float("Số tầng")
@@ -97,10 +94,7 @@ def thung_than():
                 + L_thung * 2
             )
 
-            rong_trien_khai = (
-                245 if loai_chan == "150"
-                else 195
-            )
+            rong_trien_khai = 245 if loai_chan == "150" else 195
 
             kl_chan = (
                 dai_chan
@@ -111,7 +105,7 @@ def thung_than():
             )
 
             # =========================
-            # SÀN THAN
+            # SÀN
             # =========================
 
             kl_san = (
