@@ -1,3 +1,4 @@
+```python
 import math
 from flask import Blueprint, render_template, request
 
@@ -28,12 +29,18 @@ def thung_than():
 
         try:
 
+            # =========================
+            # THÔNG SỐ CHUNG
+            # =========================
+
             L_tong = get_float("Chiều dài tổng")
             L_thung = get_float("Chiều dài thùng")
             Rong = get_float("Chiều rộng")
             Cao = get_float("Chiều cao")
             Day = get_float("Độ dày tôn")
             Dau_vao = get_float("Kích thước đầu vào")
+
+            loai_chan = request.form.get("Loại chân", "100")
 
             so_tang = get_float("Số tầng")
             day_than = get_float("Chiều dày lớp than")
@@ -48,10 +55,18 @@ def thung_than():
 
             so_tam_loc = get_float("Số tấm lọc")
 
+            # =========================
+            # THÂN GIỮA
+            # =========================
+
             kl_than_giua = (
                 (L_thung * Rong * 2 + L_thung * Cao * 2)
                 * Day * THEP / MM3
             )
+
+            # =========================
+            # 2 ĐẦU
+            # =========================
 
             kl_2_dau = (
                 (
@@ -73,19 +88,31 @@ def thung_than():
                 * Day * THEP / MM3
             )
 
-            loai_chan = request.form.get("Loại chân", "100")
+            # =========================
+            # CHÂN ĐẾ
+            # =========================
 
-dai_chan = Rong * (L_thung / 600 + 1) + L_thung * 2
+            dai_chan = (
+                Rong * (L_thung / 600 + 1)
+                + L_thung * 2
+            )
 
-rong_trien_khai = 245 if loai_chan == "150" else 195
+            rong_trien_khai = (
+                245 if loai_chan == "150"
+                else 195
+            )
 
-kl_chan = (
-    dai_chan
-    * rong_trien_khai
-    * Day
-    * THEP
-    / MM3
-)
+            kl_chan = (
+                dai_chan
+                * rong_trien_khai
+                * Day
+                * THEP
+                / MM3
+            )
+
+            # =========================
+            # SÀN THAN
+            # =========================
 
             kl_san = (
                 (
@@ -100,10 +127,18 @@ kl_chan = (
                 L_thung * Rong * 11 * so_tang / 1_000_000
             )
 
+            # =========================
+            # TĂNG CỨNG
+            # =========================
+
             kl_tang_cung = (
                 Rong * L_thung / 550
                 * 2 * 100 * Day * THEP / MM3
             )
+
+            # =========================
+            # THAN
+            # =========================
 
             kl_than = (
                 L_thung * Rong
@@ -111,14 +146,18 @@ kl_chan = (
                 * so_tang / MM3
             )
 
+            # =========================
+            # KHAY
+            # =========================
+
             kl_khay = (
                 (
                     (
-                        dai_khay * (cao_khay + 35) * 2 +
-                        rong_khay * (cao_khay + 40) +
-                        (cao_khay + 115) * rong_khay +
-                        (cao_khay + 150) * (rong_khay + 35) +
-                        dai_khay * (cao_khay + 60) * 2
+                        dai_khay * (cao_khay + 35) * 2
+                        + rong_khay * (cao_khay + 40)
+                        + (cao_khay + 115) * rong_khay
+                        + (cao_khay + 150) * (rong_khay + 35)
+                        + dai_khay * (cao_khay + 60) * 2
                     ) * so_khay
                     +
                     dai_khay * (
@@ -135,6 +174,10 @@ kl_chan = (
                 / 1_000_000
             )
 
+            # =========================
+            # KHUNG LỌC
+            # =========================
+
             kl_loc = (
                 (
                     149 * Cao * Day
@@ -145,6 +188,10 @@ kl_chan = (
                 * THEP / MM3
                 * so_tam_loc
             )
+
+            # =========================
+            # TỔNG THÉP
+            # =========================
 
             tong = (
                 kl_than_giua
@@ -180,3 +227,4 @@ TỔNG THÉP : {fm(tong)} Kg
         form=request.form,
         active_page="thung"
     )
+```
