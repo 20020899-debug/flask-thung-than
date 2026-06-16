@@ -221,4 +221,3 @@ TỔNG THÉP : {fm(tong)} Kg
         form=request.form,
         active_page="thung"
     )
-```
