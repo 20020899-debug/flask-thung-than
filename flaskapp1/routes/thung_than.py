@@ -35,9 +35,6 @@ def thung_than():
             Day = get_float("Độ dày tôn")
             Dau_vao = get_float("Kích thước đầu vào")
 
-            U100 = get_float("U100x50")
-            U150 = get_float("U150x75")
-
             so_tang = get_float("Số tầng")
             day_than = get_float("Chiều dày lớp than")
 
@@ -76,7 +73,19 @@ def thung_than():
                 * Day * THEP / MM3
             )
 
-            kl_chan = U100 / 1000 * 9.35 + U150 / 1000 * 19
+            loai_chan = request.form.get("Loại chân", "100")
+
+dai_chan = Rong * (L_thung / 600 + 1) + L_thung * 2
+
+rong_trien_khai = 245 if loai_chan == "150" else 195
+
+kl_chan = (
+    dai_chan
+    * rong_trien_khai
+    * Day
+    * THEP
+    / MM3
+)
 
             kl_san = (
                 (
