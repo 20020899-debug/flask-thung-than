@@ -44,16 +44,28 @@
 </div>
 
 <!-- ================= CHÂN ĐẾ ================= -->
+<!-- ================= CHÂN ĐẾ ================= -->
 <div class="box">
 <h3>CHÂN ĐẾ</h3>
 
-<label>U100x50</label>
-<input name="U100x50"
-       value="{{ form.get('U100x50', '') }}"><br>
+<label>Loại chân</label>
+<select name="Loại chân">
 
-<label>U150x75</label>
-<input name="U150x75"
-       value="{{ form.get('U150x75', '') }}"><br>
+    <option value="100"
+        {% if form.get('Loại chân', '100') == '100' %}
+        selected
+        {% endif %}>
+        U100
+    </option>
+
+    <option value="150"
+        {% if form.get('Loại chân') == '150' %}
+        selected
+        {% endif %}>
+        U150
+    </option>
+
+</select>
 </div>
     <!-- ================= SÀN THAN ================= -->
 <div class="box">
