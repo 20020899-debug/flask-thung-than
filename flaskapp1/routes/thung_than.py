@@ -132,7 +132,7 @@ def thung_than():
 
             kl_tang_cung = (
                 Rong * L_thung / 550
-                * 2 * 100 * 5 * THEP / MM3
+                * 2 * 100 * Day * THEP / MM3
             )
 
             # =========================
