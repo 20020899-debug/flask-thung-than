@@ -44,7 +44,6 @@
 </div>
 
 <!-- ================= CHÂN ĐẾ ================= -->
-<!-- ================= CHÂN ĐẾ ================= -->
 <div class="box">
 <h3>CHÂN ĐẾ</h3>
 
@@ -63,6 +62,13 @@
         selected
         {% endif %}>
         U150
+    </option>
+
+    <option value="200"
+        {% if form.get('Loại chân') == '200' %}
+        selected
+        {% endif %}>
+        U200
     </option>
 
 </select>
