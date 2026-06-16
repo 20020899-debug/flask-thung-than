@@ -99,7 +99,7 @@ def thung_than():
             kl_chan = (
                 dai_chan
                 * rong_trien_khai
-                * Day
+                * 4
                 * THEP
                 / MM3
             )
