@@ -117,8 +117,8 @@ def thung_than():
                 (
                     80 * 3 *
                     (
-                        L_thung * Rong / 500
-                        + Rong * L_thung / 500
+                        L_thung * (Rong / 500 + 1)
+                        + Rong * (L_thung / 500 + 1)
                     )
                     * so_tang * THEP / MM3
                 )
