@@ -44,11 +44,7 @@ def san_thao_tac():
 
         khoi_luong_vong = F11 * 2 + G11 * 1.14 + 0.87
 
-        tong = (
-            khoi_luong_san
-            + khoi_luong_thang
-            + khoi_luong_vong
-        )
+        tong = ( khoi_luong_san + khoi_luong_thang + khoi_luong_vong)
 
         ket_qua = {
             "san": round(khoi_luong_san, 2),
