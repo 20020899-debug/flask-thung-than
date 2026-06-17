@@ -43,7 +43,7 @@ def san_thao_tac():
             + 3.9154
         )
 
-        khoi_luong_vong = F11 * 1.14 + G11 * 2 + 0.87
+        khoi_luong_vong = F11 * 2 + G11 * 1.14 + 0.87
 
         tong = (
             khoi_luong_san
