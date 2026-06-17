@@ -37,7 +37,7 @@ def thung_than():
             Dau_vao = get_float("Kích thước đầu vào")
 
             # Loại chân U100 hoặc U150
-            loai_chan = request.form.get("Loại chân", "100")
+            loai_chan = request.form.get("Loại chân", "none")
 
             so_tang = get_float("Số tầng")
             day_than = get_float("Chiều dày lớp than")
