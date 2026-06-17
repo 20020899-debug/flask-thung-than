@@ -1,13 +1,10 @@
 
 import math
 from flask import Blueprint, render_template, request
-
 thung_bp = Blueprint("thung", __name__)
-
 THEP = 7850
 THAN = 550
 MM3 = 1_000_000_000
-
 
 def fm(v):
     return f"{v:,.2f}"
@@ -19,16 +16,11 @@ def get_float(name):
     except:
         return 0
 
-
 @thung_bp.route("/thung-than", methods=["GET", "POST"])
 def thung_than():
-
     ket_qua = ""
-
     if request.method == "POST":
-
         try:
-
             L_tong = get_float("Chiều dài tổng")
             L_thung = get_float("Chiều dài thùng")
             Rong = get_float("Chiều rộng")
@@ -55,12 +47,10 @@ def thung_than():
             # =========================
             # THÂN GIỮA
             # =========================
-
             kl_than_giua = (
                 (L_thung * Rong * 2 + L_thung * Cao * 2)
                 * Day * THEP / MM3
             )
-
             # =========================
             # 2 ĐẦU
             # =========================
@@ -89,10 +79,7 @@ def thung_than():
             # CHÂN ĐẾ
             # =========================
 
-            dai_chan = (
-                Rong * (L_thung / 600 + 1)
-                + L_thung * 2
-            )
+            dai_chan = (Rong * (L_thung / 600 + 1) + L_thung * 2)
 
             if loai_chan == "none":
                kl_chan = 0
@@ -107,13 +94,10 @@ def thung_than():
                    rong_trien_khai = 245
                 else:
                    rong_trien_khai = 195
-
                 kl_chan = (dai_chan * rong_trien_khai * Day * THEP / MM3)
-
             # =========================
             # SÀN
             # =========================
-
             kl_san = (
                 (
                     80 * 3 *
@@ -126,30 +110,17 @@ def thung_than():
                 +
                 L_thung * Rong * 11 * so_tang / 1_000_000
             )
-
             # =========================
             # TĂNG CỨNG
             # =========================
-
-            kl_tang_cung = (
-                Rong * L_thung / 550
-                * 2 * 100 * Day * THEP / MM3
-            )
-
+            kl_tang_cung = ( Rong * L_thung / 550 * 2 * 100 * Day * THEP / MM3)
             # =========================
             # THAN
             # =========================
-
-            kl_than = (
-                L_thung * Rong
-                * day_than * THAN
-                * so_tang / MM3
-            )
-
+            kl_than = (L_thung * Rong * day_than * THAN * so_tang / MM3)
             # =========================
             # KHAY
             # =========================
-
             kl_khay = (
                 (
                     (
@@ -173,11 +144,9 @@ def thung_than():
                 * dai_khay * rong_khay
                 / 1_000_000
             )
-
             # =========================
             # KHUNG LỌC
             # =========================
-
             kl_loc = (
                 (
                     149 * Cao * Day
@@ -188,20 +157,10 @@ def thung_than():
                 * THEP / MM3
                 * so_tam_loc
             )
-
             # =========================
             # TỔNG THÉP
             # =========================
-
-            tong = (
-                kl_than_giua
-                + kl_2_dau
-                + kl_chan
-                + kl_san
-                + kl_tang_cung
-                + kl_khay
-                + kl_loc
-            )
+            tong = (kl_than_giua + kl_2_dau + kl_chan + kl_san + kl_tang_cung + kl_khay + kl_loc)
 
             ket_qua = f"""
 THÂN GIỮA : {fm(kl_than_giua)} Kg
@@ -217,7 +176,6 @@ KHUNG LỌC : {fm(kl_loc)} Kg
 
 TỔNG THÉP : {fm(tong)} Kg
 """
-
         except Exception as e:
             ket_qua = f"Lỗi: {e}"
 
