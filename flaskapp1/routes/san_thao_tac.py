@@ -36,11 +36,7 @@ def san_thao_tac():
             + 29.3
         )
 
-        khoi_luong_thang = (
-            0.006954 * C2
-            + 0.005299 * (A2 + B2)
-            + 3.9154
-        )
+        khoi_luong_thang = (0.006954 * C2 + 0.005299 * (A2 + B2) + 3.9154)
 
         khoi_luong_vong = F11 * 2 + G11 * 1.14 + 0.87
 
