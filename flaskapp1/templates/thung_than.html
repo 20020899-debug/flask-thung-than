@@ -50,6 +50,13 @@
 <label>Loại chân</label>
 <select name="Loại chân">
 
+    <option value="none"
+        {% if form.get('Loại chân') == 'none' %}
+        selected
+        {% endif %}>
+        Không có chân U
+    </option>
+
     <option value="100"
         {% if form.get('Loại chân', '100') == '100' %}
         selected
