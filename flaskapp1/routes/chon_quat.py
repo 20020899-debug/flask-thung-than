@@ -45,11 +45,16 @@ def fan_data():
     return jsonify(
         df.to_dict("records")
     )
+
+
 @chon_quat_bp.route("/tim_quat")
 def tim_quat():
 
-    q = float(request.args.get("q", 0))
-    p = float(request.args.get("p", 0))
+    try:
+        q = float(request.args.get("q", 0))
+        p = float(request.args.get("p", 0))
+    except:
+        return jsonify([])
 
     ket_qua = []
 
