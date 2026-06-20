@@ -50,11 +50,8 @@ def fan_data():
 @chon_quat_bp.route("/tim_quat")
 def tim_quat():
 
-    try:
-        q = float(request.args.get("q", 0))
-        p = float(request.args.get("p", 0))
-    except:
-        return jsonify([])
+    q = float(request.args.get("q", 0))
+    p = float(request.args.get("p", 0))
 
     ket_qua = []
 
@@ -62,21 +59,19 @@ def tim_quat():
 
         if p > 0:
 
-    match = (
-        row["Qmin"] <= q <= row["Qmax"]
-        and
-        row["Pmin"] <= p <= row["Pmax"]
-    )
+            match = (
+                row["Qmin"] <= q <= row["Qmax"]
+                and
+                row["Pmin"] <= p <= row["Pmax"]
+            )
 
-else:
+        else:
 
-    match = (
-        row["Qmin"] <= q <= row["Qmax"]
-    )
+            match = (
+                row["Qmin"] <= q <= row["Qmax"]
+            )
 
-if match:
-
-    ket_qua.append(...)
+        if match:
 
             ket_qua.append({
                 "Model": row["Model"],
