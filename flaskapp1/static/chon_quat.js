@@ -1,25 +1,26 @@
 async function timQuat() {
 
     const D =
-        parseFloat(
-            document.getElementById("diameter").value
-        );
+    parseFloat(
+        document.getElementById("diameter").value
+    );
 
-    const V =
-        parseFloat(
-            document.getElementById("velocity").value
-        );
+const V =
+    parseFloat(
+        document.getElementById("velocity").value
+    );
 
-    const P =
-        parseFloat(
-            document.getElementById("pressure").value
-        );
+const P =
+    parseFloat(
+        document.getElementById("pressure").value
+    ) || 0;
 
-    if (!D || !V || !P) {
-        alert("Nhập đủ dữ liệu");
-        return;
-    }
+if (!D || !V) {
 
+    alert("Nhập đường kính và vận tốc");
+
+    return;
+}
     // mm -> m
     const d = D / 1000;
 
