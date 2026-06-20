@@ -5,22 +5,26 @@ async function timQuat() {
         document.getElementById("diameter").value
     );
 
-const V =
+    const V =
     parseFloat(
         document.getElementById("velocity").value
     );
 
-const P =
+    const P =
     parseFloat(
         document.getElementById("pressure").value
     ) || 0;
 
-if (!D || !V) {
+    const loai =
+        document.getElementById("loaiQuat").value;
 
-    alert("Nhập đường kính và vận tốc");
+    if (!D || !V) {
 
-    return;
-}
+        alert("Nhập đường kính và vận tốc");
+
+        return;
+    }
+
     // mm -> m
     const d = D / 1000;
 
@@ -35,7 +39,7 @@ if (!D || !V) {
 
     const res =
         await fetch(
-            `/tim_quat?q=${Q}&p=${P}`
+            `/tim_quat?q=${Q}&p=${P}&loai=${encodeURIComponent(loai)}`
         );
 
     const fans =
@@ -43,9 +47,9 @@ if (!D || !V) {
 
     let html = `
         <h3>
-        Lưu lượng tính toán:
-        ${Math.round(Q).toLocaleString()}
-        m³/h
+            Lưu lượng tính toán:
+            ${Math.round(Q).toLocaleString()}
+            m³/h
         </h3>
     `;
 
@@ -53,7 +57,7 @@ if (!D || !V) {
 
         html += `
             <p>
-            Không tìm thấy quạt phù hợp
+                Không tìm thấy quạt phù hợp
             </p>
         `;
 
@@ -67,29 +71,29 @@ if (!D || !V) {
                     <h3>${fan.Model}</h3>
 
                     <p>
-                    Loại:
-                    ${fan.Loai}
+                        Loại:
+                        ${fan.Loai}
                     </p>
 
                     <p>
-                    Lưu lượng:
-                    ${fan.Qmin.toLocaleString()}
-                    -
-                    ${fan.Qmax.toLocaleString()}
-                    m³/h
+                        Lưu lượng:
+                        ${fan.Qmin.toLocaleString()}
+                        -
+                        ${fan.Qmax.toLocaleString()}
+                        m³/h
                     </p>
 
                     <p>
-                    Áp suất:
-                    ${fan.Pmin.toLocaleString()}
-                    -
-                    ${fan.Pmax.toLocaleString()}
-                    Pa
+                        Áp suất:
+                        ${fan.Pmin.toLocaleString()}
+                        -
+                        ${fan.Pmax.toLocaleString()}
+                        Pa
                     </p>
 
                     <p>
-                    Công suất:
-                    ${fan.Kw} kW
+                        Công suất:
+                        ${fan.Kw} kW
                     </p>
 
                 </div>
