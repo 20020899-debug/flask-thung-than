@@ -35,3 +35,20 @@ def fan_data():
     return jsonify(
         fan_df.to_dict("records")
     )
+import pandas as pd
+import os
+
+BASE_DIR = os.path.dirname(
+    os.path.dirname(os.path.abspath(__file__))
+)
+
+EXCEL_FILE = os.path.join(
+    BASE_DIR,
+    "chon_quat.xlsx"
+)
+
+print(EXCEL_FILE)
+
+df = pd.read_excel(EXCEL_FILE)
+
+print(df.head())
