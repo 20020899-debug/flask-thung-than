@@ -45,3 +45,30 @@ def fan_data():
     return jsonify(
         df.to_dict("records")
     )
+@chon_quat_bp.route("/tim_quat")
+def tim_quat():
+
+    q = float(request.args.get("q", 0))
+    p = float(request.args.get("p", 0))
+
+    ket_qua = []
+
+    for _, row in df.iterrows():
+
+        if (
+            row["Qmin"] <= q <= row["Qmax"]
+            and
+            row["Pmin"] <= p <= row["Pmax"]
+        ):
+
+            ket_qua.append({
+                "Model": row["Model"],
+                "Loai": row["Loai"],
+                "Qmin": row["Qmin"],
+                "Qmax": row["Qmax"],
+                "Pmin": row["Pmin"],
+                "Pmax": row["Pmax"],
+                "Kw": row["Kw"]
+            })
+
+    return jsonify(ket_qua)
