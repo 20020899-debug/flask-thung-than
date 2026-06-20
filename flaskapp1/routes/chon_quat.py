@@ -60,11 +60,23 @@ def tim_quat():
 
     for _, row in df.iterrows():
 
-        if (
-            row["Qmin"] <= q <= row["Qmax"]
-            and
-            row["Pmin"] <= p <= row["Pmax"]
-        ):
+        if p > 0:
+
+    match = (
+        row["Qmin"] <= q <= row["Qmax"]
+        and
+        row["Pmin"] <= p <= row["Pmax"]
+    )
+
+else:
+
+    match = (
+        row["Qmin"] <= q <= row["Qmax"]
+    )
+
+if match:
+
+    ket_qua.append(...)
 
             ket_qua.append({
                 "Model": row["Model"],
