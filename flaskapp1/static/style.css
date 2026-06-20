@@ -134,3 +134,15 @@ a{
     width:120px;
     height:auto;
 }
+.fan-card{
+    border:1px solid #ccc;
+    padding:15px;
+    margin-top:10px;
+    border-radius:8px;
+    background:#fff;
+}
+
+.fan-card h3{
+    color:#198754;
+    margin-bottom:8px;
+}
