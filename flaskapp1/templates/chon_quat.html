@@ -13,14 +13,20 @@
 
     <h2>Chọn quạt theo lưu lượng</h2>
 
-    <label>Đường kính ống chính (mm)</label>
-    <input type="number" id="diameter">
+    <div class="form-group">
+        <label>Đường kính ống chính (mm)</label>
+        <input type="number" id="diameter">
+    </div>
 
-    <label>Vận tốc (m/s)</label>
-    <input type="number" id="velocity">
+    <div class="form-group">
+        <label>Vận tốc (m/s)</label>
+        <input type="number" id="velocity">
+    </div>
 
-    <label>Áp suất yêu cầu (Pa)</label>
-    <input type="number" id="pressure">
+    <div class="form-group">
+        <label>Áp suất yêu cầu (Pa)</label>
+        <input type="number" id="pressure">
+    </div>
 
     <button onclick="timQuat()">
         Tìm quạt
@@ -31,7 +37,6 @@
     <div id="result"></div>
 
 </div>
-
 <script src="{{ url_for('static', filename='chon_quat.js') }}"></script>
 
 </body>
