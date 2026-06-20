@@ -53,10 +53,18 @@ def tim_quat():
     q = float(request.args.get("q", 0))
     p = float(request.args.get("p", 0))
 
+    loai = request.args.get("loai", "").strip()
+
     ket_qua = []
 
     for _, row in df.iterrows():
 
+        # Lọc loại quạt nếu người dùng chọn
+        if loai:
+            if str(row["Loai"]).strip() != loai:
+                continue
+
+        # Có nhập áp suất
         if p > 0:
 
             match = (
@@ -65,6 +73,7 @@ def tim_quat():
                 row["Pmin"] <= p <= row["Pmax"]
             )
 
+        # Không nhập áp suất
         else:
 
             match = (
