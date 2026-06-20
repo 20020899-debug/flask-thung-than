@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, jsonify
+from flask import Blueprint, render_template, jsonify, request
 import pandas as pd
 import os
 
@@ -11,15 +11,21 @@ BASE_DIR = os.path.dirname(
     os.path.dirname(os.path.abspath(__file__))
 )
 
-FAN_FILE = os.path.join(
+EXCEL_FILE = os.path.join(
     BASE_DIR,
-    "fan_database.xlsx"
+    "chon_quat.xlsx"
 )
 
 try:
-    fan_df = pd.read_excel(FAN_FILE)
-except:
-    fan_df = pd.DataFrame()
+    df = pd.read_excel(EXCEL_FILE)
+    print("Đọc file quạt OK")
+except Exception as e:
+    print("Lỗi:", e)
+    df = pd.DataFrame()
+
+# ======================
+# Trang chọn quạt
+# ======================
 
 @chon_quat_bp.route("/chon_quat")
 def chon_quat():
@@ -29,26 +35,13 @@ def chon_quat():
         active_page="quat"
     )
 
+# ======================
+# API lấy toàn bộ dữ liệu
+# ======================
+
 @chon_quat_bp.route("/fan_data")
 def fan_data():
 
     return jsonify(
-        fan_df.to_dict("records")
+        df.to_dict("records")
     )
-import pandas as pd
-import os
-
-BASE_DIR = os.path.dirname(
-    os.path.dirname(os.path.abspath(__file__))
-)
-
-EXCEL_FILE = os.path.join(
-    BASE_DIR,
-    "chon_quat.xlsx"
-)
-
-print(EXCEL_FILE)
-
-df = pd.read_excel(EXCEL_FILE)
-
-print(df.head())
