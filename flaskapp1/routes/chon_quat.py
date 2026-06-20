@@ -23,8 +23,11 @@ except:
 
 @chon_quat_bp.route("/chon_quat")
 def chon_quat():
-    return render_template("chon_quat.html")
 
+    return render_template(
+        "chon_quat.html",
+        active_page="quat"
+    )
 
 @chon_quat_bp.route("/fan_data")
 def fan_data():
