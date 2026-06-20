@@ -1,83 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
     <title>Chọn quạt</title>
-
     <link rel="stylesheet"
-          href="{{ url_for('static',
-          filename='style.css') }}">
+          href="{{ url_for('static', filename='style.css') }}">
 </head>
-
 <body>
 
 {% include 'menu.html' %}
 
 <div class="box">
 
-    <h2>CHỌN QUẠT</h2>
+    <h2>Chọn quạt theo lưu lượng</h2>
 
-    <br>
-
-    <label>Đường kính ống (mm)</label>
-
-    <input
-        type="number"
-        id="diameter"
-    >
-
-    <br><br>
+    <label>Đường kính ống chính (mm)</label>
+    <input type="number" id="diameter">
 
     <label>Vận tốc (m/s)</label>
+    <input type="number" id="velocity">
 
-    <input
-        type="number"
-        id="velocity"
-    >
+    <label>Áp suất yêu cầu (Pa)</label>
+    <input type="number" id="pressure">
 
-    <br><br>
-
-    <button onclick="calcFlow()">
-        Tính lưu lượng
+    <button onclick="timQuat()">
+        Tìm quạt
     </button>
 
-    <br><br>
+    <hr>
 
     <div id="result"></div>
 
 </div>
 
-<script>
-
-function calcFlow(){
-
-    let d =
-        Number(
-            document.getElementById("diameter").value
-        );
-
-    let v =
-        Number(
-            document.getElementById("velocity").value
-        );
-
-    let area =
-        Math.PI *
-        Math.pow(d/1000,2) /
-        4;
-
-    let q =
-        area *
-        v *
-        3600;
-
-    document.getElementById("result").innerHTML =
-        "Lưu lượng = "
-        + q.toFixed(0)
-        + " m³/h";
-}
-
-</script>
+<script src="{{ url_for('static', filename='chon_quat.js') }}"></script>
 
 </body>
 </html>
