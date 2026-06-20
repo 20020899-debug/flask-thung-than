@@ -6,11 +6,13 @@ from routes.thung_than import thung_bp
 from routes.san_thao_tac import san_bp
 from routes.khoi_luong_tam import tam_bp
 from routes.merge_pdf import pdf_bp
+from routes.chon_quat import chon_quat_bp
 
 app.register_blueprint(thung_bp)
 app.register_blueprint(san_bp)
 app.register_blueprint(tam_bp)
 app.register_blueprint(pdf_bp)
+app.register_blueprint(chon_quat_bp)
 
 
 @app.route("/")
