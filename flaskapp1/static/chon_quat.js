@@ -143,7 +143,7 @@ async function timQuat() {
 
 
 
-async function goiY(loai, qmin, qmax){
+async function goiY(btn, loai, qmin, qmax){
 
     const res = await fetch(
         `/goi_y?loai=${loai}&qmin=${qmin}&qmax=${qmax}`
@@ -154,33 +154,50 @@ async function goiY(loai, qmin, qmax){
     let html = "";
 
     if(loai === "thap"){
-        html += "<h3>Tháp lọc phù hợp</h3>";
+        html += "<h4>Tháp lọc phù hợp</h4>";
     }
 
     if(loai === "cyclone"){
-        html += "<h3>Cyclone phù hợp</h3>";
+        html += "<h4>Cyclone phù hợp</h4>";
     }
 
     if(loai === "than"){
-        html += "<h3>Thùng than phù hợp</h3>";
+        html += "<h4>Thùng than phù hợp</h4>";
     }
 
-    data.forEach(item => {
+    if(data.length === 0){
 
         html += `
-        <div class="fan-card">
+        <p>
+            Không tìm thấy thiết bị phù hợp
+        </p>
+        `;
 
-            <b>${item.Model}</b>
+    }else{
 
-            <p>
-                Lưu lượng:
+        data.forEach(item => {
+
+            html += `
+            <div class="device-card">
+
+                <b>${item.Model}</b>
+
+                <br>
+
+                Q =
                 ${Number(item.Q).toLocaleString()}
                 m³/h
-            </p>
 
-        </div>
-        `;
-    });
+            </div>
+            `;
+        });
 
-    document.getElementById("result").innerHTML = html;
+    }
+
+    const fanCard =
+        btn.closest(".fan-card");
+
+    fanCard.querySelector(
+        ".device-result"
+    ).innerHTML = html;
 }
