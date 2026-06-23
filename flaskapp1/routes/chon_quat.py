@@ -111,10 +111,15 @@ THAN_FILE = os.path.join(
     BASE_DIR,
     "thung_than.xlsx"
 )
-
+TUI_FILE = os.path.join(
+    BASE_DIR,
+    "tui_vai.xlsx"
+)
 cyclone_df = pd.read_excel(CYCLONE_FILE)
 thap_df = pd.read_excel(THAP_FILE)
 than_df = pd.read_excel(THAN_FILE)
+tui_df = pd.read_excel(TUI_FILE)
+
  # ======================
 # GỢI Ý HỆ THỐNG
 # ======================
@@ -135,6 +140,8 @@ def goi_y():
 
     elif loai == "than":
         source = than_df
+    elif loai == "tuivai":
+        source = tui_df
 
     else:
         return jsonify([])
