@@ -70,9 +70,7 @@ async function timQuat() {
 
     <h3>${fan.Model}</h3>
 
-    <p>
-        Loại: ${fan.Loai}
-    </p>
+    <p>Loại: ${fan.Loai}</p>
 
     <p>
         Lưu lượng:
@@ -95,35 +93,44 @@ async function timQuat() {
         ${fan.Kw} kW
     </p>
 
-    <button onclick="
-        goiY(
-            'thap',
-            ${fan.Qmin},
-            ${fan.Qmax}
-        )
-    ">
-        Chọn tháp lọc
-    </button>
+    <div class="btn-group">
 
-    <button onclick="
-        goiY(
-            'cyclone',
-            ${fan.Qmin},
-            ${fan.Qmax}
-        )
-    ">
-        Chọn cyclone
-    </button>
+        <button onclick="
+            goiY(
+                this,
+                'thap',
+                ${fan.Qmin},
+                ${fan.Qmax}
+            )
+        ">
+            Tháp lọc
+        </button>
 
-    <button onclick="
-        goiY(
-            'than',
-            ${fan.Qmin},
-            ${fan.Qmax}
-        )
-    ">
-        Chọn thùng than
-    </button>
+        <button onclick="
+            goiY(
+                this,
+                'cyclone',
+                ${fan.Qmin},
+                ${fan.Qmax}
+            )
+        ">
+            Cyclone
+        </button>
+
+        <button onclick="
+            goiY(
+                this,
+                'than',
+                ${fan.Qmin},
+                ${fan.Qmax}
+            )
+        ">
+            Thùng than
+        </button>
+
+    </div>
+
+    <div class="device-result"></div>
 
 </div>
 `;
