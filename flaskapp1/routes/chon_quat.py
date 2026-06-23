@@ -118,6 +118,54 @@ than_df = pd.read_excel(THAN_FILE)
  # ======================
 # GỢI Ý HỆ THỐNG
 # ======================
+
+@chon_quat_bp.route("/goi_y_he_thong")
+def goi_y_he_thong():
+
+    qmin = float(request.args.get("qmin", 0))
+    qmax = float(request.args.get("qmax", 0))
+
+    cyclone = []
+    thap = []
+    than = []
+
+    # Cyclone
+    for _, row in cyclone_df.iterrows():
+
+        if qmin <= row["Q"] <= qmax:
+
+            cyclone.append({
+                "Model": row["Model"],
+                "Q": row["Q"]
+            })
+
+    # Tháp
+    for _, row in thap_df.iterrows():
+
+        if qmin <= row["Q"] <= qmax:
+
+            thap.append({
+                "Model": row["Model"],
+                "Q": row["Q"]
+            })
+
+    # Than
+    for _, row in than_df.iterrows():
+
+        if qmin <= row["Q"] <= qmax:
+
+            than.append({
+                "Model": row["Model"],
+                "Q": row["Q"]
+            })
+
+    return jsonify({
+        "cyclone": cyclone,
+        "thap": thap,
+        "than": than
+    })
+
+
 def goi_y_he_thong():
 
     qmin = float(request.args.get("qmin", 0))
