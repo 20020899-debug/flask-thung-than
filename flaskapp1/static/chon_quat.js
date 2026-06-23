@@ -66,46 +66,67 @@ async function timQuat() {
         fans.forEach(fan => {
 
             html += `
-                <div class="fan-card">
+<div class="fan-card">
 
-                    <h3>${fan.Model}</h3>
-                    <button
-                    onclick="
-                    goiYHeThong(
-                    ${fan.Qmin},
-                    ${fan.Qmax}
-                    )">
-                    Chọn thiết bị phù hợp
-                    </button>
+    <h3>${fan.Model}</h3>
 
-                    <p>
-                        Loại:
-                        ${fan.Loai}
-                    </p>
+    <p>
+        Loại: ${fan.Loai}
+    </p>
 
-                    <p>
-                        Lưu lượng:
-                        ${fan.Qmin.toLocaleString()}
-                        -
-                        ${fan.Qmax.toLocaleString()}
-                        m³/h
-                    </p>
+    <p>
+        Lưu lượng:
+        ${fan.Qmin.toLocaleString()}
+        -
+        ${fan.Qmax.toLocaleString()}
+        m³/h
+    </p>
 
-                    <p>
-                        Áp suất:
-                        ${fan.Pmin.toLocaleString()}
-                        -
-                        ${fan.Pmax.toLocaleString()}
-                        Pa
-                    </p>
+    <p>
+        Áp suất:
+        ${fan.Pmin.toLocaleString()}
+        -
+        ${fan.Pmax.toLocaleString()}
+        Pa
+    </p>
 
-                    <p>
-                        Công suất:
-                        ${fan.Kw} kW
-                    </p>
+    <p>
+        Công suất:
+        ${fan.Kw} kW
+    </p>
 
-                </div>
-            `;
+    <button onclick="
+        goiY(
+            'thap',
+            ${fan.Qmin},
+            ${fan.Qmax}
+        )
+    ">
+        Chọn tháp lọc
+    </button>
+
+    <button onclick="
+        goiY(
+            'cyclone',
+            ${fan.Qmin},
+            ${fan.Qmax}
+        )
+    ">
+        Chọn cyclone
+    </button>
+
+    <button onclick="
+        goiY(
+            'than',
+            ${fan.Qmin},
+            ${fan.Qmax}
+        )
+    ">
+        Chọn thùng than
+    </button>
+
+</div>
+`;
         });
     }
 
