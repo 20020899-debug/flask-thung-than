@@ -127,6 +127,17 @@ async function timQuat() {
         ">
             Thùng than
         </button>
+        
+        <button onclick="
+    goiY(
+        this,
+        'tuivai',
+        ${fan.Qmin},
+        ${fan.Qmax}
+    )
+">
+    Túi vải
+</button>
 
     </div>
 
@@ -163,6 +174,9 @@ async function goiY(btn, loai, qmin, qmax){
 
     if(loai === "than"){
         html += "<h4>Thùng than phù hợp</h4>";
+    }
+    if(loai === "tuivai"){
+    html += "<h4>HT lọc bụi túi vải phù hợp</h4>";
     }
 
     if(data.length === 0){
