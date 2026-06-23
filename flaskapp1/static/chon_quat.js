@@ -69,6 +69,14 @@ async function timQuat() {
                 <div class="fan-card">
 
                     <h3>${fan.Model}</h3>
+                    <button
+                    onclick="
+                    goiYHeThong(
+                    ${fan.Qmin},
+                    ${fan.Qmax}
+                    )">
+                    Chọn thiết bị phù hợp
+                    </button>
 
                     <p>
                         Loại:
@@ -103,4 +111,62 @@ async function timQuat() {
 
     document.getElementById("result").innerHTML =
         html;
+}
+
+
+
+async function goiYHeThong(
+    qmin,
+    qmax
+){
+
+    const res =
+    await fetch(
+        `/goi_y_he_thong?qmin=${qmin}&qmax=${qmax}`
+    );
+
+    const data =
+        await res.json();
+
+    let html = "";
+
+    html += "<h2>Cyclone phù hợp</h2>";
+
+    data.cyclone.forEach(item => {
+
+        html += `
+        <div class="fan-card">
+            ${item.Model}
+            (${item.Q.toLocaleString()} m³/h)
+        </div>
+        `;
+    });
+
+    html += "<h2>Tháp lọc phù hợp</h2>";
+
+    data.thap.forEach(item => {
+
+        html += `
+        <div class="fan-card">
+            ${item.Model}
+            (${item.Q.toLocaleString()} m³/h)
+        </div>
+        `;
+    });
+
+    html += "<h2>Thùng than phù hợp</h2>";
+
+    data.than.forEach(item => {
+
+        html += `
+        <div class="fan-card">
+            ${item.Model}
+            (${item.Q.toLocaleString()} m³/h)
+        </div>
+        `;
+    });
+
+    document.getElementById(
+        "result"
+    ).innerHTML += html;
 }
