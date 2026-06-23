@@ -119,48 +119,35 @@ than_df = pd.read_excel(THAN_FILE)
 # GỢI Ý HỆ THỐNG
 # ======================
 
-@chon_quat_bp.route("/goi_y_he_thong")
-def goi_y_he_thong():
+@chon_quat_bp.route("/goi_y")
+def goi_y():
+
+    loai = request.args.get("loai")
 
     qmin = float(request.args.get("qmin", 0))
     qmax = float(request.args.get("qmax", 0))
 
-    cyclone = []
-    thap = []
-    than = []
+    if loai == "cyclone":
+        source = cyclone_df
 
-    # Cyclone
-    for _, row in cyclone_df.iterrows():
+    elif loai == "thap":
+        source = thap_df
+
+    elif loai == "than":
+        source = than_df
+
+    else:
+        return jsonify([])
+
+    ket_qua = []
+
+    for _, row in source.iterrows():
 
         if qmin <= row["Q"] <= qmax:
 
-            cyclone.append({
+            ket_qua.append({
                 "Model": row["Model"],
                 "Q": row["Q"]
             })
 
-    # Tháp
-    for _, row in thap_df.iterrows():
-
-        if qmin <= row["Q"] <= qmax:
-
-            thap.append({
-                "Model": row["Model"],
-                "Q": row["Q"]
-            })
-
-    # Than
-    for _, row in than_df.iterrows():
-
-        if qmin <= row["Q"] <= qmax:
-
-            than.append({
-                "Model": row["Model"],
-                "Q": row["Q"]
-            })
-
-    return jsonify({
-        "cyclone": cyclone,
-        "thap": thap,
-        "than": than
-    })
+    return jsonify(ket_qua)
