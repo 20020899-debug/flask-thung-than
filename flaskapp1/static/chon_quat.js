@@ -136,58 +136,44 @@ async function timQuat() {
 
 
 
-async function goiYHeThong(
-    qmin,
-    qmax
-){
+async function goiY(loai, qmin, qmax){
 
-    const res =
-    await fetch(
-        `/goi_y_he_thong?qmin=${qmin}&qmax=${qmax}`
+    const res = await fetch(
+        `/goi_y?loai=${loai}&qmin=${qmin}&qmax=${qmax}`
     );
 
-    const data =
-        await res.json();
+    const data = await res.json();
 
     let html = "";
 
-    html += "<h2>Cyclone phù hợp</h2>";
+    if(loai === "thap"){
+        html += "<h3>Tháp lọc phù hợp</h3>";
+    }
 
-    data.cyclone.forEach(item => {
+    if(loai === "cyclone"){
+        html += "<h3>Cyclone phù hợp</h3>";
+    }
+
+    if(loai === "than"){
+        html += "<h3>Thùng than phù hợp</h3>";
+    }
+
+    data.forEach(item => {
 
         html += `
         <div class="fan-card">
-            ${item.Model}
-            (${item.Q.toLocaleString()} m³/h)
+
+            <b>${item.Model}</b>
+
+            <p>
+                Lưu lượng:
+                ${Number(item.Q).toLocaleString()}
+                m³/h
+            </p>
+
         </div>
         `;
     });
 
-    html += "<h2>Tháp lọc phù hợp</h2>";
-
-    data.thap.forEach(item => {
-
-        html += `
-        <div class="fan-card">
-            ${item.Model}
-            (${item.Q.toLocaleString()} m³/h)
-        </div>
-        `;
-    });
-
-    html += "<h2>Thùng than phù hợp</h2>";
-
-    data.than.forEach(item => {
-
-        html += `
-        <div class="fan-card">
-            ${item.Model}
-            (${item.Q.toLocaleString()} m³/h)
-        </div>
-        `;
-    });
-
-    document.getElementById(
-        "result"
-    ).innerHTML += html;
+    document.getElementById("result").innerHTML = html;
 }
